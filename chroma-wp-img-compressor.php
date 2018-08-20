@@ -9,9 +9,11 @@ NOT LICENSED
 */
 
 //Image Compression Override
-add_filter( 'jpeg_quality', function () { return 70; } );
+add_filter( 'jpeg_quality', function () { return 76; } );
 
 function chroma_wp_img_resize( $data ) {
+  if($data['type'] == 'image/gif')
+    return $data;
     //set config
     $compression_level = 70;
     $min_size = 1920;
