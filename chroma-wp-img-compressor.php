@@ -9,11 +9,12 @@ NOT LICENSED
 */
 
 //Image Compression Override
-add_filter( 'jpeg_quality', function () { return 76; } );
+add_filter( 'jpeg_quality', function () { return 77; } );
 
 function chroma_wp_img_resize( $data ) {
-  if($data['type'] == 'image/gif')
+  if ($data['type'] != 'image/jpeg' || $data['type'] != 'image/jpg' || $data['type'] != 'image/png')
     return $data;
+
     //set config
     $compression_level = 70;
     $min_size = 1920;
@@ -46,6 +47,9 @@ add_action('wp_handle_upload', 'chroma_wp_img_resize', 100);
 
 //We're gonna try to fit all necessary logic in this callback function which is essentially a wrapper for psliwa image Compressor
 function chroma_wp_img_compressor($data) {
+  if ($data['type'] != 'image/jpeg' || $data['type'] != 'image/jpg' || $data['type'] != 'image/png')
+    return $data;
+
   //get file path
   $file_path = $data['file'];
 
